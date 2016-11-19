@@ -8,11 +8,12 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
+
     <ImageView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@layout/animation"/>
+        android:background="@layout/playing_game_animation_1"/>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -41,12 +42,18 @@
 
         </LinearLayout>
 
-        <EditText
+        <TextView
+            android:id="@+id/Scoreboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/Scoreboard" />
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="sans-serif-light"
+            android:text="0"
+            android:textAllCaps="true"
+            android:textColor="#E0FFFF"
+            android:textSize="70sp" />
+
 
     </FrameLayout>
 
