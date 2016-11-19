@@ -47,4 +47,19 @@
         </LinearLayout>
     </FrameLayout>
 
+    <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+        android:oneshot="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <item android:drawable="@drawable/rocket_thrust1" android:duration="200"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <item android:drawable="@drawable/rocket_thrust2" android:duration="200"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <item android:drawable="@drawable/rocket_thrust3" android:duration="200"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </animation-list>
+
 </FrameLayout>
