@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import android.content.Intent;
+import android.provider.MediaStore;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -49,6 +51,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    private static Bitmap bit;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -123,20 +126,29 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        //button?
-        Button btn = (Button) findViewById(R.id.process);
-        btn.setOnClickListener(new View.OnClickListener() {
+
+        Button cam = (Button) findViewById(R.id.camera);
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+
+            }
+        });
+
+        Button process = (Button) findViewById(R.id.process);
+        process.setOnClickListener(new View.OnClickListener() {
             //        @Override
             public void onClick(View v){
                 //perform action
                 ImageView myImageView = (ImageView) findViewById(R.id.imgview);
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inMutable=true;
-                Bitmap myBitmap = BitmapFactory.decodeResource(
-                        getApplicationContext().getResources(),
-                        R.drawable.test1,
-                        options);
-
+//                Bitmap myBitmap = BitmapFactory.decodeResource(
+//                        getApplicationContext().getResources(),
+//                        R.drawable.test1,
+//                        options);
+                Bitmap myBitmap = bit;
                 Paint myRectPaint = new Paint();
                 myRectPaint.setStrokeWidth(5);
                 myRectPaint.setColor(Color.RED);
@@ -227,19 +239,23 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-//    private Bitmap cropBitmap1()
-//    {
-//        Bitmap bmp2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.image1);
-//        Bitmap bmOverlay = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
-//
-//        Paint p = new Paint();
-//        p.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
-//        Canvas c = new Canvas(bmOverlay);
-//        c.drawBitmap(bmp2, 0, 0, null);
-//        c.drawRect(30, 30, 100, 100, p);
-//
-//        return bmOverlay;
-//    }
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            ImageView myImageView = (ImageView) findViewById(R.id.imgview);
+            Bundle extras = data.getExtras();
+            bit = (Bitmap) extras.get("data");
+            bit = Bitmap.createScaledBitmap(bit, 5*bit.getWidth(), 5*bit.getHeight(), false);
+            myImageView.setImageBitmap(bit);
+        }
+    }
 
 }
