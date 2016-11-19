@@ -164,9 +164,8 @@ public class FullscreenActivity extends AppCompatActivity {
                     float x2 = x1 + thisFace.getWidth();
                     float y2 = y1 + thisFace.getHeight();
                     RectF rec = new RectF(x1, y1, x2, y2);
-//                    tempCanvas.drawRoundRect(rec, 2, 2, myRectPaint);
-                    int width = myBitmap.getWidth();
-                    int height = myBitmap.getHeight();
+                    tempCanvas.drawRoundRect(rec, 2, 2, myRectPaint);
+
                     myBitmap = Bitmap.createBitmap(myBitmap,(int) (x1), (int) (y1), (int) rec.width(), (int) (rec.height()));
 
                 }
