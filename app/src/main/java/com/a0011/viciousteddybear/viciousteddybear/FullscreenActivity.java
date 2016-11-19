@@ -163,9 +163,14 @@ public class FullscreenActivity extends AppCompatActivity {
                     float y1 = thisFace.getPosition().y;
                     float x2 = x1 + thisFace.getWidth();
                     float y2 = y1 + thisFace.getHeight();
-                    tempCanvas.drawRoundRect(new RectF(x1, y1, x2, y2), 2, 2, myRectPaint);
+                    RectF rec = new RectF(x1, y1, x2, y2);
+//                    tempCanvas.drawRoundRect(rec, 2, 2, myRectPaint);
+                    int width = myBitmap.getWidth();
+                    int height = myBitmap.getHeight();
+                    myBitmap = Bitmap.createBitmap(myBitmap,(int) (x1), (int) (y1), (int) rec.width(), (int) (rec.height()));
+
                 }
-                myImageView.setImageDrawable(new BitmapDrawable(getResources(),tempBitmap));
+                myImageView.setImageDrawable(new BitmapDrawable(getResources(),myBitmap));
             }
         });
     }
@@ -223,7 +228,19 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-
+//    private Bitmap cropBitmap1()
+//    {
+//        Bitmap bmp2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.image1);
+//        Bitmap bmOverlay = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
+//
+//        Paint p = new Paint();
+//        p.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
+//        Canvas c = new Canvas(bmOverlay);
+//        c.drawBitmap(bmp2, 0, 0, null);
+//        c.drawRect(30, 30, 100, 100, p);
+//
+//        return bmOverlay;
+//    }
 
 
 }
