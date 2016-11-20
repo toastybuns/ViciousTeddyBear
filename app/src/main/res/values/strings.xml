@@ -4,5 +4,6 @@
     <string name="title_activity_playing_game">PlayingGame</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
+    <string name="process">Process Button</string>
+    <string name="camera_button">Camera Button</string>
 </resources>

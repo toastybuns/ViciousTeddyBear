@@ -3,16 +3,13 @@
     android:oneshot="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <item android:drawable="@drawable/trumpg" android:duration="200"
+    <item android:drawable="@drawable/move1" android:duration="200"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <item android:drawable="@drawable/trumpo" android:duration="200"
+    <item android:drawable="@drawable/move3" android:duration="200"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <item android:drawable="@drawable/trumpp" android:duration="200"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <item android:drawable="@drawable/trumppink" android:duration="200"
+    <item android:drawable="@drawable/move5" android:duration="200"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </animation-list>

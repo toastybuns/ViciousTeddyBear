@@ -2,6 +2,7 @@ package com.a0011.viciousteddybear.viciousteddybear;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.SensorEventListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.content.Context;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
+import java.io.IOException;
+import android.media.MediaPlayer;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -31,13 +38,15 @@ public class PlayingGame extends AppCompatActivity {
     private View mControlsView;
     private boolean mVisible;
     int points = 0;
-
+    private Handler handler = new Handler();
+    MediaPlayer zPlayer;
+    MediaPlayer mPlayer;
+    int intValue;
 
     private SensorManager mSensorManager;
     private float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
-
 
     private final SensorEventListener mSensorListener = new SensorEventListener() {
 
@@ -68,9 +77,36 @@ public class PlayingGame extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
+            mPlayer = MediaPlayer.create(this, R.raw.ouch);
+            mPlayer.start();
+            ImageView sampleImage;
             points += 1;
             TextView scoresheet = (TextView) findViewById(R.id.Scoreboard);
             scoresheet.setText(String.valueOf(points));
+            if (intValue == 0) {
+                String uri = "@drawable/trump2";  // where myresource (without the extension) is the file
+
+                int imageResource;
+                handler.postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        int imageResource;
+                        String uri = "@drawable/trump1";
+                        ImageView sampleImage;
+                        imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                        sampleImage = (ImageView) findViewById(R.id.custom_image);
+                        Drawable res = getResources().getDrawable(imageResource);
+                        sampleImage.setImageDrawable(res);
+                    }
+                }, 100); //10sec delay
+
+                uri = "@drawable/trump2";  // where myresource (without the extension) is the file
+                imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                sampleImage = (ImageView) findViewById(R.id.custom_image);
+                Drawable res = getResources().getDrawable(imageResource);
+                sampleImage.setImageDrawable(res);
+            }
         }
         return false;
     };
@@ -78,14 +114,49 @@ public class PlayingGame extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent mIntent = getIntent();
+        intValue = mIntent.getIntExtra("custom_image", 0);
 
         setContentView(R.layout.activity_playing_game);
 
-        ImageView sampleImage = (ImageView) findViewById(R.id.fullscreen_content);
-        sampleImage.setBackgroundResource(R.drawable.sample1);
-        sampleImage.setImageDrawable(getResources().getDrawable(R.layout.playing_game_animation_1));
-        AnimationDrawable frameAnimation = (AnimationDrawable) sampleImage.getDrawable();
-        frameAnimation.start();
+        zPlayer = MediaPlayer.create(this, R.raw.ppap);
+        zPlayer.start();
+
+        Context context = this;
+        Bitmap bit = null;
+        ImageView sampleImage;
+        try {
+            if (intValue == 1) {
+                bit = BitmapFactory.decodeStream(context.openFileInput("myImage"));
+                sampleImage = (ImageView) findViewById(R.id.custom_image);
+                sampleImage.setImageDrawable(new BitmapDrawable(getResources(), bit));
+                sampleImage = (ImageView) findViewById(R.id.fullscreen_content);
+                sampleImage.setImageDrawable(getResources().getDrawable(R.layout.animation_not_hit));
+                AnimationDrawable frameAnimation = (AnimationDrawable) sampleImage.getDrawable();
+                frameAnimation.start();
+            }
+//            sampleImage.setBackgroundResource(R.drawable.sample2);
+//            sampleImage.setImageDrawable(getResources().getDrawable(R.layout.playing_game_animation_1));
+//            AnimationDrawable frameAnimation = (AnimationDrawable) sampleImage.getDrawable();
+//            frameAnimation.start();
+        }catch(IOException e) {
+            return;
+        }
+        if (intValue == 0) {
+            String uri = "@drawable/trump1";  // where myresource (without the extension) is the file
+
+            int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+
+            sampleImage = (ImageView) findViewById(R.id.fullscreen_content);
+            sampleImage.setBackgroundResource(R.drawable.sample1);
+            sampleImage.setImageDrawable(getResources().getDrawable(R.layout.animation_not_hit));
+            AnimationDrawable frameAnimation = (AnimationDrawable) sampleImage.getDrawable();
+            sampleImage = (ImageView) findViewById(R.id.custom_image);
+            Drawable res = getResources().getDrawable(imageResource);
+            sampleImage.setImageDrawable(res);
+            frameAnimation.start();
+        }
+
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -122,6 +193,13 @@ public class PlayingGame extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         mVisible = false;
+    }
+
+    public void onDestroy() {
+
+        zPlayer.stop();
+        super.onDestroy();
+
     }
 
 }

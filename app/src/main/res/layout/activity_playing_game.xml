@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
     tools:context="com.a0011.viciousteddybear.viciousteddybear.PlayingGame">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -13,10 +12,23 @@
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@layout/playing_game_animation_1"/>
+        android:background="@layout/animation_not_hit"/>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="120dp"
+        android:paddingLeft="85dp">
+    <ImageView
+        android:id="@+id/custom_image"
+        android:background="@null"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        />
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

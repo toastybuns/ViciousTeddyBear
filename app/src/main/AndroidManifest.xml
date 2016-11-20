@@ -24,6 +24,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_playing_game"
             android:theme="@style/FullscreenTheme"></activity>
+        <meta-data
+        android:name="com.google.android.gms.vision.DEPENDENCIES"
+        android:value="face" />
+        <uses-feature android:name="android.hardware.camera"
+            android:required="true" />
+
     </application>
 
 </manifest>
