@@ -22,6 +22,8 @@ public class FullscreenActivity extends AppCompatActivity {
     float x_coord;
     float y_coord;
     ImageView punchImage;
+    Runnable mRunnable;
+    Handler punchHandler = new Handler();
 
 
     /**
@@ -131,9 +133,12 @@ public class FullscreenActivity extends AppCompatActivity {
                 x_coord = event.getX();
                 y_coord = event.getY();
                 placeImage(x_coord, y_coord);
+                punchImage.setVisibility(View.VISIBLE);
+                punchHandler.removeCallbacks(mRunnable);
+                punchHandler.postDelayed(mRunnable, 5000);
                 break;
         }
-        return true;
+        return false;
     }
 
     private void placeImage(float x_coord, float y_coord)
@@ -152,10 +157,20 @@ public class FullscreenActivity extends AppCompatActivity {
 
         //int punchCount = 100;
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_fullscreen);
+
         punchImage = (ImageView) findViewById(R.id.fullscreen_content);
-        punchImage.setVisibility(0);
+        punchImage.setVisibility(View.INVISIBLE); //initially invisible
+
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                punchImage.setVisibility(View.INVISIBLE); //If you want just hide the View. But it will retain space occupied by the View.
+                punchImage.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+            }
+        };
+
+
 //        startPunching(/*punchCount*/);
 
 
