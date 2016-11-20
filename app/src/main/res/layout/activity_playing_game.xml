@@ -29,6 +29,21 @@
         />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="80dp"
+        android:paddingLeft="150dp">
+        <ImageView
+            android:id="@+id/punch"
+            android:background="@null"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/punch2"
+            />
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

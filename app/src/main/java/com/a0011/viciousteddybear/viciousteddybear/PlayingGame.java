@@ -42,6 +42,8 @@ public class PlayingGame extends AppCompatActivity {
     MediaPlayer zPlayer;
     MediaPlayer mPlayer;
     int intValue;
+    float x_coord, y_coord;
+    ImageView punchImage;
 
     private SensorManager mSensorManager;
     private float mAccel; // acceleration apart from gravity
@@ -74,6 +76,17 @@ public class PlayingGame extends AppCompatActivity {
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
+    private void placeImage(float x_coord, float y_coord)
+    {
+        //placing at bottom right of touch
+        //punchImage.layout(x_coord, y_coord, x_coord+48, y_coord+48);
+
+        //placing at the centre of touch
+        float viewWidth = (punchImage.getWidth()/2);
+        float viewHeight = (punchImage.getHeight()/2);
+        punchImage.layout((int)(x_coord-viewWidth), (int)(y_coord-viewHeight), (int)(x_coord+viewWidth), (int)(y_coord+viewHeight));
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
@@ -83,6 +96,9 @@ public class PlayingGame extends AppCompatActivity {
             points += 1;
             TextView scoresheet = (TextView) findViewById(R.id.Scoreboard);
             scoresheet.setText(String.valueOf(points));
+            x_coord = e.getX();
+            y_coord = e.getY();
+            placeImage(x_coord, y_coord);
             if (intValue == 0) {
                 String uri = "@drawable/trump2";  // where myresource (without the extension) is the file
 
@@ -98,9 +114,12 @@ public class PlayingGame extends AppCompatActivity {
                         sampleImage = (ImageView) findViewById(R.id.custom_image);
                         Drawable res = getResources().getDrawable(imageResource);
                         sampleImage.setImageDrawable(res);
+                        punchImage.setVisibility(View.INVISIBLE);
+                        punchImage.setVisibility(View.GONE);
                     }
                 }, 100); //10sec delay
 
+                punchImage.setVisibility(View.VISIBLE);
                 uri = "@drawable/trump2";  // where myresource (without the extension) is the file
                 imageResource = getResources().getIdentifier(uri, null, getPackageName());
                 sampleImage = (ImageView) findViewById(R.id.custom_image);
@@ -121,7 +140,10 @@ public class PlayingGame extends AppCompatActivity {
 
         zPlayer = MediaPlayer.create(this, R.raw.ppap);
         zPlayer.start();
+        punchImage = (ImageView) findViewById(R.id.punch);
 
+        punchImage.setVisibility(View.INVISIBLE);
+        punchImage.setVisibility(View.GONE);
         Context context = this;
         Bitmap bit = null;
         ImageView sampleImage;
