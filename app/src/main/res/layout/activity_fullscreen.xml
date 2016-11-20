@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/fullscreen_content"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:src="@drawable/punch2"
         />

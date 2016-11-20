@@ -135,10 +135,10 @@ public class FullscreenActivity extends AppCompatActivity {
                 placeImage(x_coord, y_coord);
                 punchImage.setVisibility(View.VISIBLE);
                 punchHandler.removeCallbacks(mRunnable);
-                punchHandler.postDelayed(mRunnable, 5000);
+                punchHandler.postDelayed(mRunnable, 1000);
                 break;
         }
-        return false;
+        return true;
     }
 
     private void placeImage(float x_coord, float y_coord)
