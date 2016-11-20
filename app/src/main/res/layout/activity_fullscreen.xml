@@ -8,16 +8,52 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
+
+    <!--<TextView-->
+        <!--android:id="@+id/fullscreen_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:keepScreenOn="true"-->
+        <!--android:text="@string/dummy_content"-->
+        <!--android:textColor="#33b5e5"-->
+        <!--android:textSize="50sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:background="@layout/punchanimation"-->
+        <!--/>-->
+
+    <ImageView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:src="@drawable/punch2"
+        />
+
+    <!--<Punch1-->
+        <!--android:id="@id/punch1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center"-->
+        <!--/>-->
+
+    <!--<Punch2-->
+        <!--android:id="@id/punch2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--/>-->
+    <!---->
+    <!--<Punch3-->
+        <!--android:id="@id/punch3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--/>-->
+
+
+
+
+
+
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -45,21 +81,23 @@
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
+
+
     </FrameLayout>
 
-    <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
-        android:oneshot="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <item android:drawable="@drawable/rocket_thrust1" android:duration="200"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <item android:drawable="@drawable/rocket_thrust2" android:duration="200"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <item android:drawable="@drawable/rocket_thrust3" android:duration="200"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </animation-list>
+    <!--<animation-list xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:oneshot="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<item android:drawable="@drawable/rocket_thrust1" android:duration="200"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+        <!--<item android:drawable="@drawable/rocket_thrust2" android:duration="200"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+        <!--<item android:drawable="@drawable/rocket_thrust3" android:duration="200"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+    <!--</animation-list>-->
 
 </FrameLayout>

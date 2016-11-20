@@ -1,18 +1,29 @@
 package com.a0011.viciousteddybear.viciousteddybear;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.view.View.OnClickListener;
+
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
+
+    float x_coord;
+    float y_coord;
+    ImageView punchImage;
+
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -83,11 +94,70 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
 
+//    public void startPunching()
+//    {
+//        punchImage = (ImageView) findViewById(R.id.fullscreen_content);
+//        punchImage.setOnClickListener(new onClickLister() {
+//            @Override
+//            public void onClick(View v){
+//                punchImage.setBackgroundResource(R.drawable.punch1);
+//                punchImage.setImageDrawable(getResources().getDrawable(R.layout.fullscreen_content));
+//            }
+//        });
+//    }
+//
+//    public void startPunching(/*int punchCount*/)
+//    {
+//        AnimationDrawable punchAnimation;
+//        //for(int i=0;i<punchCount;i++) {
+//        ImageView punchImage = (ImageView) findViewById(R.id.fullscreen_content);
+//        punchImage.setBackgroundResource(R.drawable.punch1);
+//        punchImage.setImageDrawable(getResources().getDrawable(R.layout.punchanimation));
+//        punchAnimation = (AnimationDrawable) punchImage.getDrawable();
+//        punchAnimation.start();
+////            ImageView punchImage = (ImageVieonw) findViewById(R.id.punch2);
+////            punchImage.setBackgroundResource(R.drawable.punch2);
+////            ImageView punchImage = (ImageView) findViewById(R.id.punch3);
+////            punchImage.setBackgroundResource(R.drawable.punch3);
+//        //}
+//    }
+//
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        super.onTouchEvent(event);
+        switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x_coord = event.getX();
+                y_coord = event.getY();
+                placeImage(x_coord, y_coord);
+                break;
+        }
+        return true;
+    }
+
+    private void placeImage(float x_coord, float y_coord)
+    {
+        //placing at bottom right of touch
+        //punchImage.layout(x_coord, y_coord, x_coord+48, y_coord+48);
+
+        //placing at the centre of touch
+        float viewWidth = (punchImage.getWidth()/2);
+        float viewHeight = (punchImage.getHeight()/2);
+        punchImage.layout((int)(x_coord-viewWidth), (int)(y_coord-viewHeight), (int)(x_coord+viewWidth), (int)(y_coord+viewHeight));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //int punchCount = 100;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
+        punchImage = (ImageView) findViewById(R.id.fullscreen_content);
+        punchImage.setVisibility(0);
+//        startPunching(/*punchCount*/);
+
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -106,6 +176,8 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+
     }
 
     @Override
@@ -117,6 +189,12 @@ public class FullscreenActivity extends AppCompatActivity {
         // are available.
         delayedHide(100);
     }
+
+
+
+
+
+
 
 //    private void toggle() {
 //        if (mVisible) {
